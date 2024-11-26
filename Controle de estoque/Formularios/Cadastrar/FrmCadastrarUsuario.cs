@@ -41,6 +41,7 @@ namespace Controle_de_estoque.Formularios.Cadastrar
             u.Inserir();
             MessageBox.Show("Sucesso", "Cadastrado com sucesso");
             Close();
+
         }
 
         private void txtNome_TextChanged(object sender, EventArgs e)

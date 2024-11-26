@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace Controle_de_estoque.Classes
 {
      public class Compra
     {
-        private SqlConnection Conexao = new SqlConnection("Server=LS05MPF;Database=AULA_DS;User Id=sa;Password=admsasql;");
+        private MySqlConnection Conexao = new MySqlConnection("Server=localhost;Database=projetocsharp;User Id=root;Password=");
         public int Id { get; set; }
         public DateTime DataC { get; set; }
         public string Produto { get; set; }
@@ -28,12 +28,12 @@ namespace Controle_de_estoque.Classes
             Conexao.Open();
             string query = "Insert into Usuarios (DataC , Produto, Quantidade, Total) " +
                 "               Values (@dataC, @produto, @quantidade, @total) ";
-            SqlCommand comando = new SqlCommand(query, Conexao);
+            MySqlCommand comando = new MySqlCommand(query, Conexao);
 
-            SqlParameter parametro1 = new SqlParameter("@dataC", DataC);
-            SqlParameter parametro2 = new SqlParameter("@produto", Produto);
-            SqlParameter parametro3 = new SqlParameter("@quantidade", Quantidade);
-            SqlParameter parametro4 = new SqlParameter("@total", Total);
+            MySqlParameter parametro1 = new MySqlParameter("@dataC", DataC);
+            MySqlParameter parametro2 = new MySqlParameter("@produto", Produto);
+            MySqlParameter parametro3 = new MySqlParameter("@quantidade", Quantidade);
+            MySqlParameter parametro4 = new MySqlParameter("@total", Total);
 
             comando.Parameters.Add(parametro1);
             comando.Parameters.Add(parametro2);
@@ -47,7 +47,7 @@ namespace Controle_de_estoque.Classes
             DataTable dataTable = new DataTable();
             string query = "SELECT Id, DataC , Produto, Quantidade, Total FROM Compra order by Id desc";
             Conexao.Open();
-            SqlDataAdapter adapter = new SqlDataAdapter(query, Conexao);
+            MySqlDataAdapter adapter = new MySqlDataAdapter(query, Conexao);
             try
             {
                 adapter.Fill(dataTable);

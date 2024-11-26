@@ -2,17 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Controle_de_estoque.Classes
 {
     public class Produto
     {
-        private SqlConnection Conexao = new SqlConnection("Server=LS05MPF;Database=AULA_DS;User Id=sa;Password=admsasql;");
+        private MySqlConnection Conexao = new MySqlConnection("Server=localhost;Database=projetocsharp;User Id=root;Password=");
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
@@ -25,31 +26,9 @@ namespace Controle_de_estoque.Classes
         {
             return new object[] { Id, Nome, Descricao, Preco, };
         }
-        public void Inserir()
-        {
-            try
-            {
-                Conexao.Open();
-                string query = "INSERT INTO Produto (Nome, Descricao, Preco) VALUES (@nome, @descricao, @preco)";
-                SqlCommand comando = new SqlCommand(query, Conexao);
 
-                comando.Parameters.Add(new SqlParameter("@nome", Nome));
-                comando.Parameters.Add(new SqlParameter("@descricao", Descricao));
-                comando.Parameters.Add(new SqlParameter("@preco", decimal.Parse(Preco)));
+       
 
-                comando.ExecuteNonQuery();
-
-                MessageBox.Show("Produto inserido com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao inserir produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                Conexao.Close();
-            }
-        }
         public DataTable ObterProdutos()
         {
             DataTable dataTable = new DataTable();
@@ -59,7 +38,7 @@ namespace Controle_de_estoque.Classes
                 Conexao.Open();
                 string query = "SELECT Id, Nome, Descricao, Preco FROM Produto";
 
-                SqlDataAdapter adapter = new SqlDataAdapter(query, Conexao);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, Conexao);
                 adapter.Fill(dataTable);
             }
             catch (Exception ex)
@@ -79,8 +58,8 @@ namespace Controle_de_estoque.Classes
         {
             string query = "Delete from Usuarios WHERE  Id = @id";
             Conexao.Open();
-            SqlCommand comando = new SqlCommand(query, Conexao);
-            comando.Parameters.Add(new SqlParameter("@id", Id));
+            MySqlCommand comando = new MySqlCommand(query, Conexao);
+            comando.Parameters.Add(new MySqlParameter("@id", Id));
             int resposta = comando.ExecuteNonQuery();
             if (resposta == 1)
             {
@@ -96,12 +75,12 @@ namespace Controle_de_estoque.Classes
         {
             string query = "update Usuarios set Nome = @nome, Descricao = @descricao, Preco = @preco,   WHERE  Id = @id";
             Conexao.Open();
-            SqlCommand comando = new SqlCommand(query, Conexao);
-            comando.Parameters.Add(new SqlParameter("@nome", Nome));
-            comando.Parameters.Add(new SqlParameter("@Descricao", Descricao));
-            comando.Parameters.Add(new SqlParameter("@preco", Preco));
+            MySqlCommand comando = new MySqlCommand(query, Conexao);
+            comando.Parameters.Add(new MySqlParameter("@nome", Nome));
+            comando.Parameters.Add(new MySqlParameter("@Descricao", Descricao));
+            comando.Parameters.Add(new MySqlParameter("@preco", Preco));
 
-            comando.Parameters.Add(new SqlParameter("@id", Id));
+            comando.Parameters.Add(new MySqlParameter("@id", Id));
             int resposta = comando.ExecuteNonQuery();
             if (resposta == 1)
             {
@@ -118,9 +97,9 @@ namespace Controle_de_estoque.Classes
             DataTable dataTable = new DataTable();
             Conexao.Open();
             string query = "SELECT Id, Nome, Quantidade, Nome FROM Usuarios Where Id = @id Order by Id desc";
-            SqlCommand Comando = new SqlCommand(query, Conexao);
+            MySqlCommand Comando = new MySqlCommand(query, Conexao);
             Comando.Parameters.AddWithValue("@id", id);
-            SqlDataReader resultado = Comando.ExecuteReader();
+            MySqlDataReader resultado = Comando.ExecuteReader();
 
             if (resultado.Read())
             {

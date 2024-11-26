@@ -97,18 +97,7 @@ namespace Controle_de_estoque.Formularios
             AtualizarTotal();
 
             
-                Compras c = new Compras();
-                
-                c.Apelido = txtApelido.Text;
-                c.Nome = txtNomeCompleto.Text;
-
-                CompradoDao dao = new CompradoDao();
-                dao.Inserir(c);
-
-                dgvProdutos.DataSource = dao.ObterProdutos();
-
-                LimparCampos();
-            
+               
         }
 
 

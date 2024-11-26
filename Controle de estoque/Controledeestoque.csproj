@@ -7,7 +7,7 @@
     <ProjectGuid>{74C46631-8BED-4B65-A607-AB2BC9BD5186}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Controle_de_estoque</RootNamespace>
-    <AssemblyName>Controle de estoque</AssemblyName>
+    <AssemblyName>Controledeestoque</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -117,12 +117,6 @@
     <Compile Include="Formularios\Cadastrar\FrmCadastrarUsuario.Designer.cs">
       <DependentUpon>FrmCadastrarUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Comprados.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\Comprados.Designer.cs">
-      <DependentUpon>Comprados.cs</DependentUpon>
-    </Compile>
     <Compile Include="Formularios\Compras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,9 +160,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Cadastrar\FrmCadastrarUsuario.resx">
       <DependentUpon>FrmCadastrarUsuario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Comprados.resx">
-      <DependentUpon>Comprados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Compras.resx">
       <DependentUpon>Compras.cs</DependentUpon>

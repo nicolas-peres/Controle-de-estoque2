@@ -11,12 +11,15 @@ using System.Windows.Forms;
 using Controle_de_estoque.DAO;
 using Controle_de_estoque.Classes;
 
+
 namespace Controle_de_estoque
 {
     public partial class FrmCadastrarProduto : Form
     {
-        DataTable dados;
         ProdutosDao dao = new ProdutosDao();
+        int LinhaSelecionada;
+        DataTable dados;
+      
         public FrmCadastrarProduto()
         {
             InitializeComponent();
@@ -48,19 +51,15 @@ namespace Controle_de_estoque
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            Produto produto = new Produto();
-            produto.Id = Convert.ToInt32(numId);
-            produto.Nome = comboNome.Text;
-            produto.Descricao = Convert.ToString(txtDescricao);
-            produto.Preco = txtPreco.Text;
+            Produto p = new Produto();
+            p.Id = Convert.ToInt32(numId);
+            p.Nome = comboNome.Text;
+            p.Descricao = txtDescricao.Text;
+            p.Preco = txtPreco.Text;
 
-            
 
-            Produto dao = new Produto();
-            dao.Inserir(produto);
-
+            dao.Inserir(p);
             dtGridProduto.DataSource = dao.ObterProdutos();
-
             LimparCampos();
         }
         private void LimparCampos()
@@ -78,6 +77,11 @@ namespace Controle_de_estoque
         }
 
         private void dtGridProduto_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void numId_ValueChanged(object sender, EventArgs e)
         {
 
         }

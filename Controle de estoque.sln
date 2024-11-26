@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.10.35122.118
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controle de estoque", "Controle de estoque\Controle de estoque.csproj", "{74C46631-8BED-4B65-A607-AB2BC9BD5186}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controledeestoque", "Controle de estoque\Controledeestoque.csproj", "{74C46631-8BED-4B65-A607-AB2BC9BD5186}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

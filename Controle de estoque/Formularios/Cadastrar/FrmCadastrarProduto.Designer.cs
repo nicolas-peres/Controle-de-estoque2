@@ -159,6 +159,7 @@ namespace Controle_de_estoque
             this.numId.Name = "numId";
             this.numId.Size = new System.Drawing.Size(120, 20);
             this.numId.TabIndex = 16;
+            this.numId.ValueChanged += new System.EventHandler(this.numId_ValueChanged);
             // 
             // label5
             // 

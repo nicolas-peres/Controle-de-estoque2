@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,11 +12,11 @@ namespace Controle_de_estoque.DAO
 {
     public class ProdutosDao
     {
-        private string LinhaConexao = "Server=LS05MPF;Database=AULA_DS;User Id=sa;Password=admsasql;";
-        private SqlConnection Conexao;
+        private string LinhaConexao = "Server=localhost;Database=AULA_DS;User Id=root;Password=";
+        private MySqlConnection Conexao;
         public ProdutosDao()
         {
-            Conexao = new SqlConnection(LinhaConexao);
+            Conexao = new MySqlConnection(LinhaConexao);
         }
 
        
@@ -26,9 +26,9 @@ namespace Controle_de_estoque.DAO
 
             string query = "SELECT Id, Nome FROM Produto";
 
-            using (SqlConnection connection = new SqlConnection(LinhaConexao))
+            using (MySqlConnection connection = new MySqlConnection(LinhaConexao))
             {
-                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
 
                 try
                 {
@@ -49,9 +49,9 @@ namespace Controle_de_estoque.DAO
             DataTable dt = new DataTable();
             Conexao.Open();
             string query = "SELECT Id, Nome, Descricao, Quantidade,Preco FROM Professores Order by Id desc";
-            SqlCommand comando = new SqlCommand(query, Conexao);
+            MySqlCommand comando = new MySqlCommand(query, Conexao);
 
-            SqlDataReader Leitura = comando.ExecuteReader();
+            MySqlDataReader Leitura = comando.ExecuteReader();
 
             foreach (var atributos in typeof(Produto).GetProperties())
             {
@@ -86,9 +86,9 @@ namespace Controle_de_estoque.DAO
             {
                 query = "SELECT Id, Nome, Descricao, Quantidade,Preco FROM Produtos Where Nome like '%" + pesquisa + "%' Order by Id desc";
             }
-            SqlCommand comando = new SqlCommand(query, Conexao);
+            MySqlCommand comando = new MySqlCommand(query, Conexao);
 
-            SqlDataReader Leitura = comando.ExecuteReader();
+            MySqlDataReader Leitura = comando.ExecuteReader();
 
             foreach (var atributos in typeof(Produto).GetProperties())
             {
@@ -109,6 +109,32 @@ namespace Controle_de_estoque.DAO
             }
             Conexao.Close();
             return dt;
+        }
+
+        public void Inserir(Produto p)
+        {
+            try
+            {
+                Conexao.Open();
+                string query = "INSERT INTO Produto (Nome, Descricao, Preco) VALUES (@nome, @descricao, @preco)";
+                MySqlCommand comando = new MySqlCommand(query, Conexao);
+
+                comando.Parameters.Add(new MySqlParameter("@nome", p.Nome));
+                comando.Parameters.Add(new MySqlParameter("@descricao", p.Descricao)) ;
+                comando.Parameters.Add(new MySqlParameter("@preco", decimal.Parse(p.Preco)));
+
+                comando.ExecuteNonQuery();
+
+               // MessageBox.Show("Produto inserido com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+               // MessageBox.Show("Erro ao inserir produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Conexao.Close();
+            }
         }
 
 
